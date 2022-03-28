@@ -1,0 +1,8 @@
+[user]
+	name = bernardopinto
+	email = 29512634+bernardopinto@users.noreply.github.com 
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
