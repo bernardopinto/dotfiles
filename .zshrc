@@ -127,6 +127,7 @@ alias gpr='git pull --rebase'          # Pull with rebase
 alias gpl='git pull'                   # Pull the latest changes
 alias gps='git push'                   # Push changes to the remote repository
 alias gpf='git push --force-with-lease' # Safe force push
+alias gm='git merge'		       # Simple git merge 
 alias gr='git rebase'                  # Rebase commits on top of another base commit
 alias grc='git rebase --continue'      # Continue a rebase after resolving conflicts
 alias grs='git rebase --skip'          # Skip a commit in the rebase process
@@ -167,3 +168,4 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH=$HOME/Library/Android/sdk/platform-tools:$PATH
 eval "$(zoxide init --cmd cd zsh)"
+export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
