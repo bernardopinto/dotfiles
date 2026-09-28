@@ -109,7 +109,6 @@ command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 export PATH="$HOME/nvim-macos/bin:$PATH"
-alias luamake=/Users/bernardo/.config/nvim/lua-language-server/3rd/luamake/luamake
 
 # GIT aliases
 alias g='git'                          # Shorten git to g

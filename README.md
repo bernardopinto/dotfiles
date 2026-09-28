@@ -61,6 +61,9 @@ git clone https://github.com/bernardopinto/dotfiles.git .
 
 ln -s ~/.dotfiles/.zshrc ~/.zshrc
 ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
+ln -sfn ~/.dotfiles/nvim ~/.config/nvim
+mkdir -p ~/.config/tmux
+ln -s ~/.dotfiles/tmux/tmux.conf ~/.config/tmux/tmux.conf
 ```
 
 
@@ -78,3 +81,13 @@ brew bundle dump --file ~/.dotfiles/Brewfile
 # ...or move to the directory first.
 cd ~/.dotfiles && brew bundle
 ```
+
+
+5. Install the tmux and Neovim plugins.
+
+```zsh
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+nvim --headless "+Lazy! restore" +qa
+```
+
+Then start tmux and press `prefix + I` to install the tmux plugins. Mason installs the language servers the first time Neovim starts.
