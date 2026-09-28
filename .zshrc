@@ -116,6 +116,7 @@ alias ga='git add'                     # Add files to staging
 alias gaa='git add .'                  # Add all files to staging
 alias gc='git commit'                  # Commit staged changes
 alias gcm='git commit -m'              # Commit with a message
+alias gcam='git commit -a -m'	       # Commit all tracked changes with a message
 alias gco='git checkout'               # Switch branches or restore files
 alias gd='git diff'                    # Show changes between commits, commit and working tree, etc.
 alias gst='git status'                 # Show the working tree status
