@@ -71,7 +71,6 @@ ZSH_DISABLE_COMPFIX=true
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -105,3 +104,66 @@ source $ZSH/oh-my-zsh.sh
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 autoload -U +X bashcompinit && bashcompinit
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+export PATH="$HOME/nvim-macos/bin:$PATH"
+alias luamake=/Users/bernardo/.config/nvim/lua-language-server/3rd/luamake/luamake
+
+# GIT aliases
+alias g='git'                          # Shorten git to g
+alias ga='git add'                     # Add files to staging
+alias gaa='git add .'                  # Add all files to staging
+alias gc='git commit'                  # Commit staged changes
+alias gcm='git commit -m'              # Commit with a message
+alias gco='git checkout'               # Switch branches or restore files
+alias gd='git diff'                    # Show changes between commits, commit and working tree, etc.
+alias gst='git status'                 # Show the working tree status
+alias gl='git log --oneline --graph --decorate --all' # Pretty git log
+alias gb='git branch'                  # List, create, or delete branches
+alias gbd='git branch -d'              # Delete a branch
+alias gpr='git pull --rebase'          # Pull with rebase
+alias gpl='git pull'                   # Pull the latest changes
+alias gps='git push'                   # Push changes to the remote repository
+alias gpf='git push --force-with-lease' # Safe force push
+alias gr='git rebase'                  # Rebase commits on top of another base commit
+alias grc='git rebase --continue'      # Continue a rebase after resolving conflicts
+alias grs='git rebase --skip'          # Skip a commit in the rebase process
+alias gsta='git stash'                 # Stash changes
+alias gstp='git stash pop'             # Apply and remove the latest stash
+alias gsts='git stash show --text'     # Show the contents of the latest stash
+alias greset='git reset'               # Reset current HEAD to the specified state
+alias grhh='git reset --hard HEAD'     # Hard reset to the latest commit
+alias gt='git tag'                     # List, create, or delete tags
+alias gcp='git cherry-pick'            # Apply the changes introduced by some existing commits
+alias glg='git log --oneline --graph --decorate' # Pretty log graph with details
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/bernardo/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/bernardo/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/bernardo/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/bernardo/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+export PATH=$HOME/Library/Android/sdk/platform-tools:$PATH
+eval "$(zoxide init --cmd cd zsh)"

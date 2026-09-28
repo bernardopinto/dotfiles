@@ -1,8 +1,14 @@
 [user]
-	name = bernardopinto
-	email = 29512634+bernardopinto@users.noreply.github.com 
+	name = Bernardo
+	email = 29512634+bernardopinto@users.noreply.github.com
+[includeIf "gitdir:~/Repos/work/"]
+    path = ~/Repos/work/.gitconfig
 [alias]
 	co = checkout
 	br = branch
 	ci = commit
 	st = status
+[pull]
+	rebase = true
+[rerere]
+	enabled = true
