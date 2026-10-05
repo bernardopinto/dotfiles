@@ -1,6 +1,7 @@
 [user]
-	name = Bernardo
-	email = 29512634+bernardopinto@users.noreply.github.com
+	useConfigOnly = true
+[include]
+	path = ~/.gitconfig.local
 [includeIf "gitdir:~/Repos/work/"]
     path = ~/Repos/work/.gitconfig
 [alias]

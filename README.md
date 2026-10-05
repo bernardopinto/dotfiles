@@ -29,6 +29,23 @@ chmod 777 ./install.sh
 ./install.sh
 ```
 
+## Private Git identity
+
+The shared `.gitconfig` loads your personal identity from `~/.gitconfig.local`,
+which stays outside this repository. After installing the dotfiles, configure it:
+
+```zsh
+git config --file ~/.gitconfig.local user.name "Your Name"
+git config --file ~/.gitconfig.local user.email "you@example.com"
+```
+
+The existing configuration in `~/Repos/work/.gitconfig` overrides this identity
+for work repositories. Git requires an explicitly configured identity before
+committing, so it won't guess your name or email from your system account.
+Commit author names and emails are still recorded in Git history; use a private
+or noreply email if you don't want your personal email in published commits.
+Removing identity settings does not erase them from earlier repository history.
+
 ## Steps to bootstrap a new Mac
 
 1. Install Apple's Command Line Tools, which are prerequisites for Git and Homebrew.
