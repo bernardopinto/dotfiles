@@ -25,6 +25,20 @@ mkdir -p ~/.config/tmux
 # git
 link "${BASEDIR}/.gitconfig" ~/.gitconfig
 
+# Keep personal Git identity outside the dotfiles repository.
+if [ ! -e "$HOME/.gitconfig.local" ]; then
+	git_name=""
+	git_email=""
+	while [[ ! "$git_name" =~ [^[:space:]] ]]; do
+		read -r -p "Git author name: " git_name || exit 1
+	done
+	while [[ ! "$git_email" =~ [^[:space:]] ]]; do
+		read -r -p "Git email: " git_email || exit 1
+	done
+	git config --file "$HOME/.gitconfig.local" user.name "$git_name" || exit 1
+	git config --file "$HOME/.gitconfig.local" user.email "$git_email" || exit 1
+fi
+
 # zsh
 link "${BASEDIR}/.zshrc" ~/.zshrc
 
