@@ -37,5 +37,8 @@ alias gt='git tag'                     # List, create, or delete tags
 alias gcp='git cherry-pick'            # Apply the changes introduced by some existing commits
 alias glg='git log --oneline --graph --decorate' # Pretty log graph with details
 
+# COMMAND ALIASES
+alias ll = "ls -alF"
+
 
 eval "$(zoxide init --cmd cd zsh)"
