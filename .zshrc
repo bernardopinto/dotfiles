@@ -18,6 +18,7 @@ alias gco='git checkout'               # Switch branches or restore files
 alias gd='git diff'                    # Show changes between commits, commit and working tree, etc.
 alias gst='git status'                 # Show the working tree status
 alias gl='git log --oneline --graph --decorate --all' # Pretty git log
+alias gld="git log --format='%C(yellow)%h%C(reset) %C(bold blue)%an <%ae>%C(reset) %C(green)(%ar)%C(reset)%n%C(bold)%s%C(reset)%n%w(0,4,4)%b'" # Detailed log with authors, emails and descriptions
 alias gb='git branch'                  # List, create, or delete branches
 alias gbd='git branch -d'              # Delete a branch
 alias gpr='git pull --rebase'          # Pull with rebase
