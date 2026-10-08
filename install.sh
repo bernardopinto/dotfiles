@@ -40,13 +40,21 @@ if [ ! -e "$HOME/.gitconfig.local" ]; then
 fi
 
 # zsh
-link "${BASEDIR}/.zshrc" ~/.zshrc
+# ~/.zshrc stays a local file that sources the shared config, so installers
+# that append to it (e.g. sdkman) don't modify this repository.
+zshrc_source="source \"${BASEDIR}/.zshrc\""
+if ! grep -qxF "$zshrc_source" ~/.zshrc 2>/dev/null; then
+	{ echo "$zshrc_source"; cat ~/.zshrc 2>/dev/null; } > ~/.zshrc.tmp && mv ~/.zshrc.tmp ~/.zshrc
+fi
 
 # neovim
 link "${BASEDIR}/nvim" ~/.config/nvim
 
 # tmux
 link "${BASEDIR}/tmux/tmux.conf" ~/.config/tmux/tmux.conf
+
+# starship
+link "${BASEDIR}/starship.toml" ~/.config/starship.toml
 
 # Install brew bundles:
 
