@@ -1,19 +1,15 @@
-tap "coursier/formulas"
-tap "hashicorp/tap"
+tap "coursier/formulas", trusted: true
+tap "hashicorp/tap", trusted: true
 brew "fd"
 brew "httpie"
 brew "jq"
 brew "neovim"
-brew "node"
 brew "ripgrep"
 brew "tmux"
 brew "watch"
 brew "zoxide"
 brew "zsh"
 brew "zsh-autosuggestions"
-brew "coursier/formulas/coursier"
+brew "zsh-autocomplete"
+brew "coursier/formulas/coursier", args: ["without-shell-completions"]
 brew "hashicorp/tap/terraform"
-cask "intellij-idea-ce"
-cask "iterm2"
-cask "keepassxc"
-cask "notion"

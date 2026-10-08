@@ -1,10 +1,5 @@
-# Initialize native Zsh completion.
-autoload -Uz compinit
-compinit
-
-# User configuration
-
-# AUTOSUGGESTIONS
+# ZSH PLUGINS 
+source $(brew --prefix)/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # GIT aliases
@@ -43,3 +38,5 @@ alias ll="ls -alF"
 
 
 eval "$(zoxide init --cmd cd zsh)"
+eval "$(starship init zsh)"
+export PATH="$HOME/.local/bin:$PATH"

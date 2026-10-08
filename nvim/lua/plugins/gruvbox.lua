@@ -5,6 +5,7 @@ return {
   config = function()
     vim.o.background = "light"
     require("gruvbox").setup({
+      contrast = "hard",
       overrides = {
         MatchParen = { fg = "#282828", bg = "#fabd2f", bold = true },
       },

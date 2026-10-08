@@ -10,6 +10,8 @@ return {
 
 	-- Example of settings
 	metals_config.settings = {
+	  serverVersion = "2.0.0-M2",
+	  serverProperties = { "-Xmx4g" },
 	  showImplicitArguments = true,
 	  showImplicitConversionsAndClasses = true,
 	  showInferredType = true,
