@@ -37,6 +37,7 @@ alias glg='git log --oneline --graph --decorate' # Pretty log graph with details
 alias ll="ls -alF"
 
 
+eval "$(fnm env --use-on-cd --shell zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(starship init zsh)"
 export PATH="$HOME/.local/bin:$PATH"

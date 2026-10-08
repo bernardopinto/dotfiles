@@ -1,6 +1,7 @@
 tap "coursier/formulas", trusted: true
 tap "hashicorp/tap", trusted: true
 brew "fd"
+brew "fnm"
 brew "httpie"
 brew "jq"
 brew "neovim"

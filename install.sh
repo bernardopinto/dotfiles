@@ -8,6 +8,17 @@ else
 	brew update
 fi
 
+# A fresh Homebrew install isn't on PATH yet; stop until the user sets it up.
+if ! command -v brew > /dev/null 2>&1; then
+	brew_bin=/opt/homebrew/bin/brew
+	[ -x "$brew_bin" ] || brew_bin=/usr/local/bin/brew
+	echo "Homebrew is not on your PATH. Run the following, then re-run this script:" >&2
+	echo >&2
+	echo "  echo 'eval \"\$(${brew_bin} shellenv zsh)\"' >> ~/.zprofile" >&2
+	echo "  eval \"\$(${brew_bin} shellenv zsh)\"" >&2
+	exit 1
+fi
+
 # Symlinks
 
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -59,6 +70,10 @@ link "${BASEDIR}/starship.toml" ~/.config/starship.toml
 # Install brew bundles:
 
 brew bundle --file "${BASEDIR}/Brewfile"
+
+# Node.js LTS via fnm (needed by Mason's pyright and typescript-tools.nvim);
+# the first installed version becomes fnm's default.
+fnm install --lts
 
 # tmux plugin manager
 if [ ! -d ~/.config/tmux/plugins/tpm ]; then
