@@ -1,4 +1,6 @@
-# ZSH PLUGINS 
+# ZSH PLUGINS
+# zsh-autocomplete stores cdr's recent dirs here but doesn't create the directory
+mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/zsh"
 source $(brew --prefix)/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
