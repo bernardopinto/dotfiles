@@ -20,9 +20,9 @@ map("n", "<leader>rn", vim.lsp.buf.rename)
 map("n", "<leader>f", function() vim.lsp.buf.format({ async = true }) end)
 map("n", "<leader>ca", vim.lsp.buf.code_action)
 map(
-	"n", 
-	"<leader>ih", 
-	function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, 
+	"n",
+	"<leader>ih",
+	function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
 	{ desc = "Toggle inlay hints" }
 )
 
@@ -31,22 +31,22 @@ map("n", "<leader>aa", vim.diagnostic.setqflist)
 
 -- all workspace errors
 map("n", "<leader>ae", function()
-  vim.diagnostic.setqflist({ severity = "E" })
+  vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
 end)
 
 -- all workspace warnings
 map("n", "<leader>aw", function()
-  vim.diagnostic.setqflist({ severity = "W" })
+  vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.WARN })
 end)
 
 -- buffer diagnostics only
 map("n", "<leader>d", vim.diagnostic.setloclist)
 
 map("n", "[c", function()
-  vim.diagnostic.goto_prev({ wrap = false })
+  vim.diagnostic.jump({ count = -1, wrap = false, float = true })
 end)
 
 map("n", "]c", function()
-  vim.diagnostic.goto_next({ wrap = false })
+  vim.diagnostic.jump({ count = 1, wrap = false, float = true })
 end)
 

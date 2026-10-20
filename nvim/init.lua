@@ -2,7 +2,9 @@ vim.g.mapleader = " "
 
 vim.wo.number = true
 vim.o.termguicolors = true
-vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
+-- Disable netrw; nvim-tree replaces it (<leader>e is set in plugins/nvim-tree.lua)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.clipboard = "unnamedplus"
