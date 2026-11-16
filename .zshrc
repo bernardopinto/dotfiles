@@ -22,6 +22,7 @@ alias gpr='git pull --rebase'          # Pull with rebase
 alias gpl='git pull'                   # Pull the latest changes
 alias gps='git push'                   # Push changes to the remote repository
 alias gpf='git push --force-with-lease' # Safe force push
+alias gpsu='git push -u origin HEAD'	# Pushed the current branch to origin
 alias gm='git merge'		       # Simple git merge 
 alias gr='git rebase'                  # Rebase commits on top of another base commit
 alias grc='git rebase --continue'      # Continue a rebase after resolving conflicts

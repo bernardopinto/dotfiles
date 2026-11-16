@@ -1,4 +1,78 @@
 local api = vim.api
+
+-- Jump to the location attached to an inlay hint on the cursor line, like
+-- clicking a hint in VS Code (e.g. the implicit decoder picked for `.as[T]`).
+local function goto_inlay_hint_definition(client)
+  local bufnr = api.nvim_get_current_buf()
+  local row = api.nvim_win_get_cursor(0)[1] - 1
+  local hints = vim.lsp.inlay_hint.get({
+    bufnr = bufnr,
+    range = { start = { line = row, character = 0 }, ["end"] = { line = row + 1, character = 0 } },
+  })
+
+  local targets = {}
+  for _, h in ipairs(hints) do
+    local hint = h.inlay_hint
+    if type(hint.label) == "table" and client:supports_method("inlayHint/resolve") then
+      local resp = client:request_sync("inlayHint/resolve", hint, 1000, bufnr)
+      if resp and resp.result then hint = resp.result end
+    end
+    if type(hint.label) == "table" then
+      for _, part in ipairs(hint.label) do
+        -- Metals sends the target as a command whose argument is a Location
+        local arg = part.command and part.command.arguments and part.command.arguments[1]
+        if part.location then
+          table.insert(targets, { name = part.value, location = part.location })
+        elseif type(arg) == "table" and arg.uri and arg.range then
+          table.insert(targets, { name = part.value, location = arg })
+        elseif part.command then
+          table.insert(targets, { name = part.value, command = part.command })
+        end
+      end
+    end
+  end
+
+  local function jump(target)
+    if target.location then
+      vim.lsp.util.show_document(target.location, client.offset_encoding, { focus = true })
+    else
+      client:exec_cmd(target.command, { bufnr = bufnr })
+    end
+  end
+
+  if #targets == 0 then
+    vim.notify("No inlay hint with a location on this line", vim.log.levels.INFO)
+  elseif #targets == 1 then
+    jump(targets[1])
+  else
+    vim.ui.select(targets, {
+      prompt = "Inlay hint target",
+      format_item = function(t) return t.name end,
+    }, function(choice) if choice then jump(choice) end end)
+  end
+end
+
+-- Jump to the next/previous `case` of the match enclosing the cursor. Moves
+-- between sibling case_clause nodes, so cases of nested matches are skipped.
+local function goto_case(forward)
+  local node = vim.treesitter.get_node()
+  while node and node:type() ~= "case_clause" do node = node:parent() end
+  if not node then
+    vim.notify("Not inside a match case", vim.log.levels.INFO)
+    return
+  end
+
+  local sibling = forward and node:next_named_sibling() or node:prev_named_sibling()
+  while sibling and sibling:type() ~= "case_clause" do
+    sibling = forward and sibling:next_named_sibling() or sibling:prev_named_sibling()
+  end
+  if not sibling then return end
+
+  local row, col = sibling:start()
+  vim.cmd("normal! m'") -- add to the jumplist so <C-o> goes back
+  api.nvim_win_set_cursor(0, { row + 1, col })
+end
+
 return {
     "scalameta/nvim-metals",
     dependencies = {
@@ -12,9 +86,11 @@ return {
 	metals_config.settings = {
 	  serverVersion = "2.0.0-M19",
 	  serverProperties = { "-Xmx4g" },
-	  showImplicitArguments = true,
-	  showImplicitConversionsAndClasses = true,
-	  showInferredType = true,
+	  inlayHints = {
+	    implicitArguments = { enable = true },
+	    implicitConversions = { enable = true },
+	    inferredTypes = { enable = true },
+	  },
 	  enableSemanticHighlighting = true,
 	  excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
 	}
@@ -67,6 +143,9 @@ return {
 	  local map = vim.keymap.set
 	  map("v", "K", function() require("metals").type_of_range() end, { buffer = bufnr, desc = "Metals type of selection" })
 	  map("n", "<leader>ws", function() require("metals").hover_worksheet() end, { buffer = bufnr, desc = "Metals hover worksheet" })
+	  map("n", "<leader>gh", function() goto_inlay_hint_definition(client) end, { buffer = bufnr, desc = "Go to definition of inlay hint (e.g. implicit)" })
+	  map("n", "]k", function() goto_case(true) end, { buffer = bufnr, desc = "Next match case" })
+	  map("n", "[k", function() goto_case(false) end, { buffer = bufnr, desc = "Previous match case" })
 	  map("n", "<leader>dc", function() require("dap").continue() end, { buffer = bufnr, desc = "DAP continue" })
 	  map("n", "<leader>dr", function() require("dap").repl.toggle() end, { buffer = bufnr, desc = "DAP REPL toggle" })
 	  map("n", "<leader>dK", function() require("dap.ui.widgets").hover() end, { buffer = bufnr, desc = "DAP hover" })

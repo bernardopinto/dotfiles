@@ -9,6 +9,10 @@ vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.clipboard = "unnamedplus"
 
+-- Case-insensitive search unless the pattern has an uppercase letter (\c / \C override)
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
 -- Start with all folds open; toggle with za, close all with zM, open all with zR
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
